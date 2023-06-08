@@ -1,0 +1,21 @@
+.card {
+    align-items: center;
+    margin: 3rem;
+    width: 60vw;
+}
+
+.card-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fafafa;
+}
+
+.card-content .form-fields {
+    margin: 1rem;
+    width: 40vw;
+}
+
+.login {
+    justify-content: center;
+}
