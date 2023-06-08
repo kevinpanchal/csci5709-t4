@@ -44,6 +44,8 @@ export default function Login() {
           });
         }
         break;
+      default:
+        break;
     }
   };
 
