@@ -2,6 +2,7 @@ import { Card, CardContent, Button, TextField, Container } from "@mui/material";
 import { useState } from "react";
 import "../styles/Login.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -11,64 +12,24 @@ export default function Login() {
     password: "",
   });
 
-  const [error, setError] = useState({
-    username: null,
-    password: null,
-  });
-
-  const validateUser = (name, value) => {
-    switch (name) {
-      case "username":
-        if (value !== "testemail@dal.ca") {
-          setError({
-            ...error,
-            username: "Invalid username",
-          });
-        } else {
-          setError({
-            ...error,
-            username: "",
-          });
-        }
-        break;
-      case "password":
-        if (value !== "Test@123") {
-          setError({
-            ...error,
-            password: "Invalid password",
-          });
-        } else {
-          setError({
-            ...error,
-            password: "",
-          });
-        }
-        break;
-      default:
-        break;
-    }
-  };
-
   const handleChange = (change) => {
     const { name, value } = change.target;
     setUserData({ ...userData, [name]: value });
-    validateUser(name, value);
-    console.log(userData, error);
+    console.log(userData);
   };
 
-  const handleSubmit = (submit) => {
+  const handleSubmit = async (submit) => {
     submit.preventDefault();
 
-    const formIsValid = Object.values(error).every(
-      (errorMsg) => errorMsg === ""
-    );
-
-    if (formIsValid) {
-      setUserData({
-        username: "",
-        password: "",
-      });
+    try {
+      const response = await axios.post(
+        "https://express-t4.onrender.com/api/login",
+        userData
+      );
+      console.log(response.data.message);
       navigate("/Profile");
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -85,8 +46,6 @@ export default function Login() {
             className="form-fields"
             name="username"
             value={userData.username}
-            error={!!error.username}
-            helperText={error.username}
             label="Username"
             variant="outlined"
             onChange={handleChange}
@@ -96,8 +55,6 @@ export default function Login() {
             className="form-fields"
             name="password"
             value={userData.password}
-            error={!!error.password}
-            helperText={error.password}
             label="Password"
             variant="outlined"
             type="password"
