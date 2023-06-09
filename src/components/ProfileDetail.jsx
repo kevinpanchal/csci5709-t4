@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import {
   Container,
   Card,
   CardContent,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
+  Button,
 } from "@mui/material";
 import "../styles/ProfileDetail.css";
 
 export function ProfileDetail() {
   const { id } = useParams();
   const [user, setUser] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,8 +32,13 @@ export function ProfileDetail() {
     fetchData();
   }, [id]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/profile");
+  };
+
   if (!user) {
-    return <div>Loading...</div>;
+    return;
   }
 
   return (
@@ -79,6 +84,14 @@ export function ProfileDetail() {
               </Typography>
             ))}
           </Typography>
+          <Button
+            variant="contained"
+            color="error"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Back
+          </Button>
         </CardContent>
       </Card>
     </Container>
