@@ -2,7 +2,7 @@
 
 - _Date Created_: 8 June 2023
 - _Last Modification Date_: ...
-- _Git URL_: <...>
+- _Git URL_: <https://git.cs.dal.ca/kcpanchal/csci-5709-tutorials/-/tree/main/Tutorial4>
 
 ## Authors
 
